@@ -8,10 +8,10 @@ angular.module('ion-current-location', [])
             scope: {
                 ngModel: '=?'
             },
-            link: link
+            controller: controller
         }
 
-        function link(scope, element, attrs, ngModel) {
+        function controller(scope, element, attrs, ngModel) {
             console.log('ionCurrentLocation');
             console.log(ngModel);
         }
