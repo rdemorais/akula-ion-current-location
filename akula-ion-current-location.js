@@ -7,7 +7,7 @@ angular.module('ion-current-location', [])
             restrict: 'E',
             scope: {
                 ngModel: '=?'
-            },
+            }
             controller: controller
         }
 
