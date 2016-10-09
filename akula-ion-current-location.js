@@ -1,6 +1,7 @@
-angular.module('ion-current-location', ['$q'])
+angular.module('ion-current-location', [])
     .directive('ionCurrentLocation', ionCurrentLocation);
 
+    ionCurrentLocation.$inject = ['$q']
     function ionCurrentLocation($q) {
         return {
             require: '?ngModel',
