@@ -14,10 +14,10 @@ angular.module('ion-current-location', [])
 
                 element.on('click', function() {
                     getLocation()
-                        .then(reverseGeocoding()
+                        .then(reverseGeocoding)
                         .then(function(location) {
                             console.log(location);
-                        }));
+                        });
                 });
 
                 function getLocation() {
