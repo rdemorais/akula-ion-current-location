@@ -10,10 +10,14 @@ angular.module('ion-current-location', [])
                 ngModel: '=?'
             },
             link: function(scope, element, attrs, ngModel) {
+                var geocoder = new google.maps.Geocoder();
+
                 element.on('click', function() {
-                    getLocation().then(function(position) {
-                        console.log(position);
-                    });
+                    getLocation()
+                        .then(reverseGeocoding()
+                        .then(function(location) {
+                            console.log(location);
+                        }));
                 });
 
                 function getLocation() {
@@ -24,6 +28,30 @@ angular.module('ion-current-location', [])
                             error.from = 'getLocation';
                             reject(error);
                         });
+                    });
+                }
+
+                function reverseGeocoding(location) {
+                    return $q(function (resolve, reject) {
+                        var latlng = {
+                            lat: location.coords.latitude,
+                            lng: location.coords.longitude
+                        };
+                        geocoder.geocode({'location': latlng}, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                if (results[1]) {
+                                    resolve(results[1]);
+                                } else {
+                                    resolve(results[0])
+                                }
+                            } else {
+                                var error = {
+                                    status: status,
+                                    from: 'reverseGeocoding'
+                                };
+                                reject(error);
+                            }
+                        })
                     });
                 }
             }
