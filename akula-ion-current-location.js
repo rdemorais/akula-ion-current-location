@@ -13,6 +13,13 @@ angular.module('ion-current-location', [])
                 var geocoder = new google.maps.Geocoder();
 
                 element.on('click', function() {
+                    var location = {
+                        formatted_address: 'capturando localização atual'
+                    };
+
+                    ngModel.$setViewValue(location);
+                    ngModel.$render();
+                    
                     getLocation()
                         .then(reverseGeocoding)
                         .then(function(location) {
