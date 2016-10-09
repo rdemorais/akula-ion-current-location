@@ -4,15 +4,13 @@ angular.module('ion-current-location', [])
     function ionCurrentLocation() {
         return {
             require: '?ngModel',
-            restrict: 'E',
+            restrict: 'A',
             scope: {
                 ngModel: '=?'
             },
-            controller: controller
-        }
-
-        function controller(scope, element, attrs, ngModel) {
-            console.log('ionCurrentLocation');
-            console.log(ngModel);
+            link: function(scope, element, attrs, ngModel) {
+                console.log(element);
+                console.log('directive ion');
+            }
         }
     }
