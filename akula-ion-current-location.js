@@ -16,6 +16,7 @@ angular.module('ion-current-location', [])
                     getLocation()
                         .then(reverseGeocoding)
                         .then(function(location) {
+                            ngModel.$setViewValue(location);
                             console.log(location);
                         });
                 });
