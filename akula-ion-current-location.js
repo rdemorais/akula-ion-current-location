@@ -1,7 +1,7 @@
-angular.module('ion-current-location', [])
+angular.module('ion-current-location', ['$q'])
     .directive('ionCurrentLocation', ionCurrentLocation);
 
-    function ionCurrentLocation() {
+    function ionCurrentLocation($q) {
         return {
             require: '?ngModel',
             restrict: 'A',
@@ -9,8 +9,22 @@ angular.module('ion-current-location', [])
                 ngModel: '=?'
             },
             link: function(scope, element, attrs, ngModel) {
-                console.log(element);
-                console.log('directive ion');
+                element.on('click', function() {
+                    getLocation().then(function(position) {
+                        console.log(position);
+                    });
+                });
+
+                function getLocation() {
+                    return $q(function (resolve, reject) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            resolve(position);
+                        }, function (error) {
+                            error.from = 'getLocation';
+                            reject(error);
+                        });
+                    });
+                }
             }
-        }
+        }        
     }
